@@ -1,0 +1,59 @@
+<section class="py-3">
+    <p>add-emp works!</p>
+    <select class="form-control col-md-6  " style="background-color: #e0e0e0 ;">
+        <option *ngFor="let i of empLists" >{{i.name}}</option>
+    </select>
+    <form [formGroup]="service.EmpModel"  class="pt-4" (submit)="onSubmit()" method="POST">
+        <div class="col-md-6 py-2">
+                
+            <div class="input-container ">
+                <input  class="input InputCustom " 
+                name="Name" formControlName="Name" id="Name"
+                  type="text" pattern=".+" required />
+    
+                <label class="label " for="Name">Name</label>
+                <span class="text-danger" *ngIf="service.EmpModel.get('Name').touched && service.EmpModel.get('Name').errors?.required">name is invalid</span>
+    
+            </div>
+        </div> 
+    
+        <div class="col-md-6  py-2">
+            <div class="input-container">
+                <input  type="text" id="Salary"
+                name="Salary" formControlName="Salary"
+                required   
+                class="input InputCustom " pattern=".+" required />
+                <label class="label"   for="Salary">Salary</label>
+                <span class="text-danger" *ngIf="service.EmpModel.get('Salary').touched && service.EmpModel.get('Salary').errors?.required">Salary is invalid</span>
+    
+            </div>
+        </div>
+        <div class="col-md-6  py-2">
+            <div class="input-container">
+                <input  type="date" id="Birthday"
+                name="Birthday" formControlName="Birthday"
+                required   
+                class="input InputCustom " pattern=".+" required />
+                <label class="label"   for="Birthday">Birthday</label>
+                <span class="text-danger" *ngIf="service.EmpModel.get('Birthday').touched && service.EmpModel.get('Birthday').errors?.required">Birthday is invalid</span>
+    
+            </div>
+        </div>
+        <div class="col-md-6  py-2">
+            <div class="input-container">
+                <input  type="date" id="HireDate"
+                name="HireDate" formControlName="HireDate"
+                required   
+                class="input InputCustom " pattern=".+" required />
+                <label class="label"   for="HireDate">HireDate</label>
+                <span class="text-danger" *ngIf="service.EmpModel.get('HireDate').touched && service.EmpModel.get('HireDate').errors?.required">HireDate is invalid</span>
+            </div>
+        </div>
+        <div class="col-md-6 form-group py-2">
+            <button  [disabled]="service.EmpModel.invalid" type="submit" class="btn btn-info">
+                submit
+            </button>
+          </div>
+    </form>
+    <button class="btn btn-info" routerLink="/employees"> view all employees</button>
+</section>

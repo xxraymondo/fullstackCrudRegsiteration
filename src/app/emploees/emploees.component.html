@@ -1,0 +1,160 @@
+<section id="empsSection" class="py-3">
+    <div class="row">
+    <div class="col-md-12 ">
+      <div class="col-md-6 float-left"><h3>employees Info</h3> </div>
+      <div class="col-md-6 float-right">    <button class="btn btn-info  float-right"  routerLink="/AddEmp">add employee</button></div>
+  </div>
+</div>
+    <div class="row my-4">
+    <div class="  col-md-3 ">
+
+      <div class="input-container ">
+    
+      <input class="input InputCustom  "  required #textSearch id="SearchByName" (keyup)="onKey(textSearch.value)" >
+      <label class="label " for="SearchByName">Name</label>
+    </div>
+    </div>
+ 
+    <div class=" col-md-3 ">
+      <div class="input-container ">
+        
+        <input class="input InputCustom" required id="SearchByBirthday"  #BirthdaySearch (keyup)="onKeyBirthday(BirthdaySearch.value)" >
+        <label class="label " for="SearchByBirthday">search by birthday</label>
+      </div>
+
+    </div>
+    <div class=" col-md-3 ">
+      <div class="input-container ">
+        
+        <input class="input InputCustom" required id="SearchBySalary"  #salarySearch (keyup)="onKeySalary(salarySearch.value)" >
+        <label class="label " for="SearchBySalary">search by salary</label>
+      </div>
+ 
+    </div>
+    <div class="col-md-3 ">
+      <div class="input-container ">
+      <input class="input InputCustom" required id="SearchByHiringDate"  #HiringDateSearch (keyup)="onKeyHiring(HiringDateSearch.value)" >
+        <label class="label " for="SearchByHiringDate">search by hiring date</label>
+      </div>
+    </div>
+  </div>
+    <table class="table table-striped table-dark rounded py-3">
+        <thead>
+          <tr>
+            
+            <th scope="col">
+                Name</th>
+            <th scope="col">Salary</th>
+            <th scope="col">Birthday</th>
+            <th scope="col">HireDate</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let i of empLists;index as j">
+            
+            <td>{{i.name}}</td>
+            <td>{{i.salary}}</td>
+            <td>{{i.birthday}}</td>
+            <td>{{i.hireDate}}</td>
+            <td>
+              <button style="width: 70px;" class="btn btn-outline-success  mr-2 mb-1" (click)="SeletetModifiedItem(i.hrId)" data-toggle="modal" data-target="#exampleModalLong2">Edit</button>
+
+              <button style="width:70px;" class="btn btn-outline-danger mb-1" (click)="SeletetDeletedItem(i.hrId)" data-toggle="modal" data-target="#exampleModalLong" >Delete</button>
+            </td>
+          </tr>
+        
+        </tbody>
+      </table>
+</section>
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+<div class="modal  fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog " role="document">
+    <div class="modal-content darkBG">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Deleting Employee</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        </button>
+      </div>
+      <div class="modal-body">
+        <span aria-hidden="true">Are you sure that you want to delete??</span>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" (click)="ConfirmDeleteing()" data-dismiss="modal">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="exampleModalLong2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content darkBG">
+      <div class="modal-header ">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modify Employee</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="service.EditEmpModel"  class="pt-4" (submit)="ConfirmModiy()" method="POST">
+          <div class="col-md-6 py-2">
+                  
+              <div class="input-container ">
+                  <input  class="input InputCustom " 
+                  name="Name" formControlName="Name" id="Name"
+                    type="text" pattern=".+" required />
+        
+                  <label class="label " for="Name">Name</label>
+                  <span class="text-danger" *ngIf="service.EditEmpModel.get('Name').touched && service.EditEmpModel.get('Name').errors?.required">name is invalid</span>
+        
+              </div>
+          </div> 
+        
+          <div class="col-md-6  py-2">
+              <div class="input-container">
+                  <input  type="text" id="Salary"
+                  name="Salary" formControlName="Salary"
+                  required   
+                  class="input InputCustom " pattern=".+" required />
+                  <label class="label"   for="Salary">Salary</label>
+                  <span class="text-danger" *ngIf="service.EditEmpModel.get('Salary').touched && service.EditEmpModel.get('Salary').errors?.required">Salary is invalid</span>
+        
+              </div>
+          </div>
+          <div class="col-md-6  py-2">
+              <div class="input-container">
+                  <input  type="date" id="Birthday"
+                  name="Birthday" formControlName="Birthday"
+                  required   
+                  class="input InputCustom " pattern=".+" required />
+                  <label class="label"   for="Birthday">Birthday</label>
+                  <span class="text-danger" *ngIf="service.EditEmpModel.get('Birthday').touched && service.EditEmpModel.get('Birthday').errors?.required">Birthday is invalid</span>
+        
+              </div>
+          </div>
+          <div class="col-md-6  py-2">
+              <div class="input-container">
+                  <input  type="date" id="HireDate"
+                  name="HireDate" formControlName="HireDate"
+                  required   
+                  class="input InputCustom " pattern=".+" required />
+                  <label class="label"   for="HireDate">HireDate</label>
+                  <span class="text-danger" *ngIf="service.EditEmpModel.get('HireDate').touched && service.EditEmpModel.get('HireDate').errors?.required">HireDate is invalid</span>
+              </div>
+          </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button  [disabled]="service.EditEmpModel.invalid" data-dismiss="modal" type="button" (click)="ConfirmModiy()" class="btn btn-info" >
+                submit
+            </button>
+            </div>
+        </form> 
+      </div>
+    
+    </div>
+  </div>
+</div>
+ 

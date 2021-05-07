@@ -1,0 +1,39 @@
+<div id="loginSection" class="py-4">
+    <h2>Login</h2>
+    <form #form='ngForm'   (submit)="onSubmit(form)" >
+        <div class="col-md-6 py-2">
+                
+            <div class="input-container ">
+                <input  class="input InputCustom " 
+                name="Username" #Username="ngModel" [(ngModel)]="LoginformModel.Username" id="Username"
+                  type="text" pattern=".+" required />
+    
+                <label class="label " for="Username">Username</label>
+                <span class="text-danger" *ngIf="service.formModel.get('Username').touched && service.formModel.get('Username').errors?.required">Username is invalid</span>
+    
+            </div>
+        </div> 
+
+            <div class="col-md-6  py-2">
+                <div class="input-container">
+                    <input  class="input InputCustom " #Password="ngModel" [(ngModel)]="LoginformModel.Password"
+                       name="Password" 
+                 id="Password"
+                    type="password" pattern=".+" required />
+                    <label class="label" for="Password">Password</label>
+                    <span class="text-danger" 
+                    *ngIf="service.formModel.get('Passwords.Password').touched && service.formModel.get('Passwords.Password').errors?.required">Password is invalid</span>
+    
+                </div>
+            </div>
+
+      
+       
+        <div class="col-md-6 form-group py-2">
+            <button   type="submit" class="btn btn-info">
+                submit
+            </button>
+          </div>
+    </form>
+    
+    </div>

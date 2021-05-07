@@ -1,0 +1,65 @@
+<div id="CreateSection" class="py-4">
+<h2>Create User</h2>
+<form [formGroup]="service.formModel" (submit)="onSubmit()" method="POST">
+    <div class="col-md-6 py-2">
+            
+        <div class="input-container ">
+            <input  class="input InputCustom " 
+            name="Username" formControlName="Username" id="Username"
+              type="text" pattern=".+" required />
+
+            <label class="label " for="Username">Username</label>
+            <span class="text-danger" *ngIf="service.formModel.get('Username').touched && service.formModel.get('Username').errors?.required">Username is invalid</span>
+
+        </div>
+    </div> 
+
+    <div class="col-md-6  py-2">
+        <div class="input-container">
+            <input  type="text" id="Email"
+            name="Email" formControlName="Email"
+            required   
+            class="input InputCustom " pattern=".+" required />
+            <label class="label"   for="Email">Email</label>
+            <span class="text-danger" *ngIf="service.formModel.get('Email').touched && service.formModel.get('Email').errors?.required">Email is invalid</span>
+
+        </div>
+    </div>
+    <div class="col-md-12" formGroupName="Passwords" style="padding: 0;">
+        <div class="col-md-6  py-2">
+            <div class="input-container">
+                <input  class="input InputCustom "
+                 formControlName="Password"  name="Password" 
+             id="Password"
+                type="password" pattern=".+" required />
+                <label class="label" for="Password">Password</label>
+                <span class="text-danger" 
+                *ngIf="service.formModel.get('Passwords.Password').touched && service.formModel.get('Passwords.Password').errors?.required">Password is invalid</span>
+
+            </div>
+        </div>
+        <div class="col-md-6  py-2">
+            <div class="input-container">
+                <input id="confirmPass" type="password" class="input InputCustom " 
+                 formControlName="confirmPass" 
+                  name="confirmPass" pattern="{{ service.formModel.get('Passwords.Password.value') }}"
+                required />
+                <label class="label" for="confirmPass">Confirm Password</label>
+                <span class="text-danger" 
+                *ngIf="service.formModel.get('Passwords.confirmPass').touched && service.formModel.get('Passwords.confirmPass').errors.pattern">Password doesn't match</span>
+                <span class="text-danger" 
+                *ngIf="service.formModel.get('Passwords.confirmPass').touched && service.formModel.get('Passwords.confirmPass').errors?.required">Confirm Password is invalid</span>
+
+            </div>
+        </div>
+    </div>
+  
+   
+    <div class="col-md-6 form-group py-2">
+        <button  [disabled]="service.formModel.invalid" type="submit" class="btn btn-info">
+            submit
+        </button>
+      </div>
+</form>
+
+</div>
